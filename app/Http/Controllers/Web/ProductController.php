@@ -42,17 +42,17 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('error', 'update failed');
     }
 
-    // public function create(){
-    //     return view('products.create');
-    // }
+    public function create(){
+        return view('products.create');
+    }
 
-    // public function store(CreateRequest $createRequest){
-    //     $request = $createRequest->validated();
-    //     $result = $this->productService->store($request);
-    //     if($result){
-    //         return redirect()->route('products.index')->with('success','create success');
-    //     }
-    //     return redirect()->route('products.index')->with('error', 'update failed');
-    // }
+    public function store(CreateRequest $createRequest){
+        $request = $createRequest->validated();
+        $result = $this->productService->store($request);
+        if($result){
+            return redirect()->route('products.index')->with('success','create success');
+        }
+        return redirect()->route('products.index')->with('error', 'update failed');
+    }
 
 }

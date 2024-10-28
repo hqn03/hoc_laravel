@@ -24,11 +24,11 @@ class ProductService
         return $product->update($params);
     }
 
-    // public function store($params){
-    //     try{
-    //         return $this->product->create($params);
-    //     }catch(Exception $exception){
-    //         Log::error($exception);
-    //     }
-    // }
+    public function store($params){
+        try{
+            return $this->product->create($params);
+        }catch(Exception $exception){
+            Log::error($exception);
+        }
+    }
 }

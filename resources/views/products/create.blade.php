@@ -1,4 +1,4 @@
-{{-- <form action="" method="post">
+<form action="" method="post">
     @csrf
     <div>
         <label for="name">Name</label>
@@ -13,4 +13,4 @@
         <input type="text" name="price" id="price"/>
     </div>
     <button type="submit">Store</button>
-</form> --}}
+</form>

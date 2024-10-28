@@ -5,6 +5,7 @@
 @if (Session::has('error'))
     <p class="error-message">{{Session::get('error')}}</p>
 @endif
+<a href={{route('products.create')}}>Create product</a>
 <table style="width:100%">
     <tr>
         <th>Name</th>
