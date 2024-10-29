@@ -5,6 +5,7 @@ use App\Models\Product;
 use Exception;
 use Log;
 use Psy\CodeCleaner\FunctionReturnInWriteContextPass;
+use SebastianBergmann\CodeCoverage\FileCouldNotBeWrittenException;
 
 class ProductService
 {
@@ -30,5 +31,17 @@ class ProductService
         }catch(Exception $exception){
             Log::error($exception);
         }
+    }
+
+    public function delete($product){
+        return $product->delete();
+    }
+
+    public function listTrash(){
+        return $this->product->get()::withTrash();
+    }
+
+    public function restore($product){
+        return $product->restore();
     }
 }

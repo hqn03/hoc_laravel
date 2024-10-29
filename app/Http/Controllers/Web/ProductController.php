@@ -55,4 +55,26 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('error', 'update failed');
     }
 
+    public function delete(Product $product){
+        $result = $this->productService->delete($product);
+        if($result){
+            return redirect()->route('products.index')->with('success','delete success');
+        }
+        return redirect()->route('products.index')->with('error', 'delete failed');
+    }
+
+    public function trash(){
+        $products = Product::onlyTrashed()->get();
+        return view('products.trash',['products'=>$products]);
+    }
+
+    public function restore($id){
+        $product = Product::onlyTrashed()->find($id);
+        $result = $this->productService->restore($product);
+        if($result){
+            return redirect()->route('products.trash')->with('success','restore success');
+        }
+        return redirect()->route('products.trash')->with('error', 'restore failed');
+    }
+
 }

@@ -1,4 +1,4 @@
-<h1>Products</h1>
+<h1>Trash</h1>
 @if (Session::has('success'))
     <p class="sucess-message">{{Session::get('success')}}</p>
 @endif
@@ -6,29 +6,27 @@
     <p class="error-message">{{Session::get('error')}}</p>
 @endif
 <div class="link-btn-container">
-    <a href={{route('products.create')}}>Create product</a>
-    <a href={{route('products.trash')}}>Trash</a>
+    <a href={{route('products.index')}}> < Back to list product</a>
 </div>
 <table style="width:100%">
     <tr>
         <th>Name</th>
         <th>Desc</th>
         <th>Price</th>
-        <th colspan="2">Action</th>
+        <th>Action</th>
     </tr>
     @foreach ($products as $item)
     <tr>
         <td><a href={{route('products.show',$item->id)}}>{{$item->name}}</a></td>
         <td>{{$item->description}}</td>
         <td>{{$item->price}}</td>
-        <td><a href={{route('products.edit',$item->id)}}>Edit</a></td>
-        <td><a href='#' class='btn-delete' data-id="{{$item->id}}" data-name="{{$item->name}}">Delete</a></td>
+        <td><a href="#" class='btn-restore' data-id="{{$item->id}}">Restore</a></td>
     </tr>    
     @endforeach        
 </table>
-<form id='form-delete' method="POST">
+<form id='form-restore' method="POST">
     @csrf
-    @method('DELETE')
+    @method('PUT')
 </form>
 
 <style>
@@ -36,7 +34,7 @@
         display: flex;
         gap:8px;
     }
-
+    
     .link-btn-container a{
         padding: 16px 8px;
         background: #3498db;
@@ -69,22 +67,16 @@
         color: white;
         background: #e74c3c;
     }
-
-
 </style>
 
 <script>
-    const formDelete = document.querySelector('#form-delete');
-    const deleteBtns = document.querySelectorAll(".btn-delete");
-    deleteBtns.forEach(item => {
+    const formRestore = document.querySelector('#form-restore');
+    const restoreBtns = document.querySelectorAll(".btn-restore");
+    restoreBtns.forEach(item => {
         item.onclick = (e) => {
-            const {id, name} = e.target.dataset;
-            const confirmDelete = confirm(`Bạn có muốn xóa sản phẩm: ${name}`);
-            if(!confirmDelete){
-                return;
-            }
-            formDelete.action = `/products/${id}`;
-            formDelete.submit();
+            const {id} = e.target.dataset;
+            formRestore.action = `trash/${id}`;
+            formRestore.submit();
         }
     });    
 </script>
